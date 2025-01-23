@@ -1,0 +1,724 @@
+{
+  "paths": {
+    "/adminLogin/login": {
+      "post": {
+        "tags": ["Admin"],
+        "summary": "Admin Login",
+        "description": "Allows an admin to log in by providing their credentials.",
+        "operationId": "adminLogin",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/Login"
+              },
+              "example": {
+                "email": "sree@company.com",
+                "password": "Strong@1234"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/create": {
+      "post": {
+        "tags": [ "Admin" ],
+        "summary": "Create a new user",
+        "description": "",
+        "operationId": "addUser",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/Admin"
+              },
+              "example": {
+                "first_name": "Sree",
+                "last_name": "lakshmi",
+                "email": "sree@company.com",
+                "password": "Strong@1234",
+                "user_type": "Admin",
+                "profile_picture": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/list": {
+      "get": {
+        "tags": [ "Admin" ],
+        "summary": "Get all users",
+        "operationId": "GetAllUsers",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "The page number to return",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/get/{user_id}": {
+      "get": {
+        "tags": [ "Admin" ],
+        "summary": "get user by id",
+        "description": "",
+        "operationId": "getUserById",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/update/{user_id}": {
+      "patch": {
+        "tags": [ "Admin" ],
+        "summary": "update user by id",
+        "description": "",
+        "operationId": "updateUser",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/Admin"
+              },
+              "example": {
+                "first_name": "SREE",
+                "last_name": "LAKSHMI",
+                "email":""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/delete/{user_id}": {
+      "post": {
+        "tags": [ "Admin" ],
+        "summary": "Delete a user by id",
+        "operationId": "userDelete",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/vegetable/create": {
+      "post": {
+        "tags": [ "Admin" ],
+        "summary": "Create a new vegetable",
+        "description": "",
+        "operationId": "addVegetable",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/Admin"
+              },
+              "example": {
+                "name": "Carrot",
+                "color": "#FF5733",
+                "price": "19.99" 
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/vegetable/list": {
+      "get": {
+        "tags": [ "Admin" ],
+        "summary": "Get all vegetables",
+        "operationId": "GetAllAdminVeg",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "The page number to return",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/vegetable/get/{vegetable_id}": {
+      "get": {
+        "tags": [ "Admin" ],
+        "summary": "get vegetable by id",
+        "description": "",
+        "operationId": "getVegetableById",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "vegetable_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/vegetable/update/{vegetable_id}": {
+      "patch": {
+        "tags": [ "Admin" ],
+        "summary": "update vegetable by id",
+        "description": "",
+        "operationId": "updatevegetable",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "vegetable_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/Admin"
+              },
+              "example": {
+                "name": "CARROT",
+                "color": "#FF5733",
+                "price":"60.00"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/admin/vegetable/delete/{vegetable_id}": {
+      "post": {
+        "tags": [ "Admin" ],
+        "summary": "Delete a vegetable by id",
+        "operationId": "vegetableDelete",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "vegetable_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/manager/vegetable/create": {
+      "post": {
+        "tags": [ "Manager" ],
+        "summary": "Create a new vegetable",
+        "description": "",
+        "operationId": "addManagerVegetable",
+        "security": [
+          {
+            "managerAuth": [ ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/Admin"
+              },
+              "example": {
+                "name": "Carrot",
+                "color": "#FF5733",
+                "price": "19.99" 
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/manager/vegetable/list": {
+      "get": {
+        "tags": [ "Manager" ],
+        "summary": "Get all vegetables",
+        "operationId": "GetAllManagerVeg",
+        "security": [
+          {
+            "managerAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "The page number to return",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The numbers of items to return",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/manager/vegetable/get/{vegetable_id}": {
+      "get": {
+        "tags": [ "Manager" ],
+        "summary": "get vegetable by id",
+        "description": "",
+        "operationId": "getManagerVegetableById",
+        "security": [
+          {
+            "managerAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "vegetable_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/manager/vegetable/update/{vegetable_id}": {
+      "patch": {
+        "tags": [ "Manager" ],
+        "summary": "update vegetable by id",
+        "description": "",
+        "operationId": "updateManagervegetable",
+        "security": [
+          {
+            "managerAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "vegetable_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/Admin"
+              },
+              "example": {
+                "name": "CARROT",
+                "color": "#FF5733",
+                "price":"60.00"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/manager/vegetable/delete/{vegetable_id}": {
+      "post": {
+        "tags": [ "Manager" ],
+        "summary": "Delete a vegetable by id",
+        "operationId": "ManagerVegetableDelete",
+        "security": [
+          {
+            "managerAuth": [ ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "vegetable_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    }
+}
+}

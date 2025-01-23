@@ -1,0 +1,149 @@
+{
+  "components": {
+    "requestBodies": {
+      "Admin": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "required": true
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Manager": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "required": true
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "required": true
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "required": true,
+            "default": "example@ex.com"
+          },
+          "password": {
+            "type": "string",
+            "required": true
+          }
+        }
+      }
+    },
+    "responses": {
+      "Success": {
+        "description": "Ok",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/success"
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Invalid Input provided",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/apiError"
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Authorization failed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/apiError"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "The specified resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/apiError"
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "The specified resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/apiError"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "adminAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "in": "header"
+      },
+      "managerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "in": "header"
+      }
+    },
+    "schemas": {
+      "success": {
+        "type": "object",
+        "properties": { }
+      },
+      "apiError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": { }
+        }
+      }
+    }
+  }
+}
