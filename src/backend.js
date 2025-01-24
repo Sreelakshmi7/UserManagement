@@ -29,15 +29,16 @@ app.use(cors());// Initialize Passport.js
 
 // Swagger documentation route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use(adminAuthMiddleware); 
-app.use(managerAuthMiddleware); 
 
 // Routes
 app.use('/v1/admin', userRouter);
 app.use('/v1/adminLogin', loginRouter);
 app.use('/v1/admin/vegetable', vegetableRouter);
- app.use('/v1/manager/vegetable', vegetablesRouter); 
+app.use('/v1/manager/vegetable', vegetablesRouter); 
 
+app.use(adminAuthMiddleware); 
+app.use(managerAuthMiddleware); 
+ 
 // Error handling for unsupported routes
 app.use((req, res) => {
     res.status(404).json({ message: 'Route not found' });

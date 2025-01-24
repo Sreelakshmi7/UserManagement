@@ -27,36 +27,6 @@ router.post('/create', passport.authenticate('jwt', { session: false }), manager
 router.get('/list', passport.authenticate('jwt', { session: false }), managerAuthMiddleware, async (req, res) => {
     getAllVegetables(req, res);
 });
-
-//     console.log('Incoming request headers:', req.headers);
-
-//     if (!req.headers.authorization) {
-//         console.error('No Authorization header provided.');
-//         return res.status(401).json({ message: 'Unauthorized: No auth token' });
-//     }
-//     next();
-// },
-// passport.authenticate('jwt', { session: false }, (err, user, info) => {
-//     if (err) {
-//         console.error('Passport Error:', err.message);
-//         return res.status(500).json({ message: 'Internal server error' });
-//     }
-//     if (!user) {
-//         console.warn('Passport JWT: Unauthorized:', info?.message || 'No user found');
-//         return res.status(401).json({ message: 'Unauthorized: Invalid token' });
-//     }
-//     req.user = user;
-//     return next();
-// }),
-// managerAuthMiddleware,
-// async (req, res) => {
-//     console.log('Manager Authorization Passed.');
-//     await getAllVegetables(req, res);
-// });
-
-
-
-
 // Manager route to get vegetable by ID
 router.get('/get/:vegetable_id', passport.authenticate('jwt', { session: false }), managerAuthMiddleware, validate(getVegetableValidation()), async (req, res) => {
     getVegetableById(req, res);
