@@ -58,14 +58,11 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-    console.log('Serializing user:', user.id);
     done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
     try {
-        console.log('Deserializing user with id:', id);
-
         const user = await User.findById(id);
         if (!user) {
             console.warn('Deserialization: User not found for id:', id);
@@ -79,18 +76,5 @@ passport.deserializeUser(async (id, done) => {
         done(err);
     }
 });
-
-// Enhanced logging in middleware to track JWT token and errors
-export const managerAuthMiddleware = (req, res, next) => {
-    console.log('managerAuthMiddleware: Checking user type...');
-    
-    if (req.user && req.user.userType === 'Manager') {
-        console.log('managerAuthMiddleware: Manager access granted');
-        return next(); 
-    }
-    
-    console.log('managerAuthMiddleware: Forbidden: You are not a manager');
-    return res.status(403).json({ message: 'Forbidden: You are not a manager' });
-};
 
 export default passport;

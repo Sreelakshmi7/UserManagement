@@ -4,6 +4,9 @@ import swaggerUi from 'swagger-ui-express';
 import component from './components.json' assert { type: 'json' }; 
 import specification from './openapi.json' assert { type: 'json' }; 
 
+// Swagger Url: http://localhost:3000/api-docs/
+
+
 // Swagger configuration
 const swaggerOptions = {
     definition: {

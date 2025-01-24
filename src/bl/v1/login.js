@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 
-// Business logic for token generation
 export async function loginUser(req, res) {
     
     const user = req.user; 

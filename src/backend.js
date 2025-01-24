@@ -14,20 +14,19 @@ import { adminAuthMiddleware } from './api/v1/middleware/adminAuthMiddleware.js'
 import { managerAuthMiddleware } from './api/v1/middleware/managerAuthMiddleware.js';
 
 
-dotenv.config(); // Load environment variables
+dotenv.config(); 
 
 const app = express();
-
 // Connect to MongoDB
 connectDB();
 
 // Middleware setup
-app.use(bodyParser.json()); // Use body-parser for JSON parsing
+app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize()); 
-app.use(cors());// Initialize Passport.js
+app.use(cors());
 
-// Swagger documentation route
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Routes
@@ -39,17 +38,17 @@ app.use('/v1/manager/vegetable', vegetablesRouter);
 app.use(adminAuthMiddleware); 
 app.use(managerAuthMiddleware); 
  
-// Error handling for unsupported routes
+
 app.use((req, res) => {
     res.status(404).json({ message: 'Route not found' });
 });
 
-// Global error handler for unexpected errors
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'Internal Server Error' });
 });
 
-// Start the server
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

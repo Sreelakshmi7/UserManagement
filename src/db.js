@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { createDefaultUser } from './api/v1/routes/admin/addDynamicData.js'; // Import the function
+import { createDefaultUser } from './api/v1/routes/admin/addDynamicData.js'; 
 
 dotenv.config();
 
