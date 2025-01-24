@@ -108,10 +108,6 @@ export async function updateUserById(req, res) {
         });
     }
 }
-
-
-
-
 // Delete user by ID
 export async function deleteUserById(req, res) {
     try {
@@ -143,21 +139,34 @@ export async function searchUsers(req, res) {
         const userType = req?.body?.user_type ?? null;
         const query = {};
 
-        if (firstName) query.first_name = { $regex: firstName, $options: 'i' }; 
-        if (lastName) query.last_name = { $regex: lastName, $options: 'i' }; 
+        if (firstName) query.firstName = { $regex: firstName, $options: 'i' };
+        if (lastName) query.lastName = { $regex: lastName, $options: 'i' };
         if (email) query.email = { $regex: email, $options: 'i' };
-        if (userType) query.user_type = userType; 
-
+        if (userType) query.userType = userType; 
+        
+        if (Object.keys(query).length === 0) {
+            console.log("No search filters provided.");
+            return res.status(400).json({
+                message: 'Please provide at least one search filter.',
+            });
+        }
         const users = await User.find(query);
-
+        if (users.length === 0) {
+            console.log("No users found with the provided search criteria");
+            return res.status(404).json({
+                message: 'No users found matching the search criteria.',
+            });
+        }
         res.status(200).json(users);
     } catch (err) {
-        console.error(err);
+        console.error("Error during search:", err);
         res.status(500).json({
             message: 'Server error while searching users',
             error: err.message,
         });
     }
 }
+
+
 
 

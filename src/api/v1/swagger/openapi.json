@@ -268,6 +268,53 @@
         }
       }
     },
+    "/admin/search": {
+      "post": {
+        "tags": [ "Admin" ],
+        "summary": "Serach a user",
+        "description": "",
+        "operationId": "searchUser",
+        "security": [
+          {
+            "adminAuth": [ ]
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/Admin"
+              },
+              "example": {
+                "first_name": "Sree",
+                "last_name": "lakshmi",
+                "email": "sree@company.com",
+                "password": "Strong@1234",
+                "user_type": "Admin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Success"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
     "/admin/vegetable/create": {
       "post": {
         "tags": [ "Admin" ],

@@ -33,7 +33,7 @@ router.post('/delete/:user_id', passport.authenticate('jwt', { session: false })
 });
 
 // Admin route to search users
-router.get('/search', passport.authenticate('jwt', { session: false }), adminRoleMiddleware, async (req, res) => {
+router.post('/search', passport.authenticate('jwt', { session: false }), adminRoleMiddleware, async (req, res) => {
     searchUsers(req, res);
 });
 

@@ -6,9 +6,28 @@ import passport from '../../../../config/passport.js';
 
 const router = express.Router();
 
-// Login route
-router.post('/login', validate(loginValidation), passport.authenticate('local', { session: false }), async (req, res) => {
-    await loginUser(req, res); 
-});
+
+router.post(
+    '/login',
+    validate(loginValidation),
+    (req, res, next) => {
+        passport.authenticate('local', { session: false }, (err, user, info) => {
+            if (err) {
+                console.error('Error during authentication:', err.message);
+                return res.status(500).json({ message: 'Internal server error', error: err.message });
+            }
+            if (!user) {
+                console.warn('Authentication failed:', info.message);
+                return res.status(401).json({ message: info.message });
+            }
+            req.user = user;
+            next();
+        })(req, res, next); 
+    },
+    async (req, res) => {
+        await loginUser(req, res);
+    }
+);
+
 
 export const loginRouter = router;
