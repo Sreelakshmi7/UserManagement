@@ -1,5 +1,5 @@
 import express from 'express';
-import { managerAuthMiddleWare } from '../../middleware/managerAuthMiddleware.js'; 
+import { managerAuthMiddleware } from '../../middleware/managerAuthMiddleware.js'; 
 import { validate } from '../../../../services/expressValidator/helper.js';
 import { 
     createVegetableValidation,
@@ -19,12 +19,12 @@ import passport from 'passport';
 const router = express.Router();
 
 // Manager route to create a new vegetable
-router.post('/create', passport.authenticate('jwt', { session: false }), managerAuthMiddleWare, validate(createVegetableValidation()), async (req, res) => {
+router.post('/create', passport.authenticate('jwt', { session: false }), managerAuthMiddleware, validate(createVegetableValidation()), async (req, res) => {
     createVegetable(req, res);
 });
 
 // Manager route to get all vegetables
-router.get('/list', passport.authenticate('jwt', { session: false }), managerAuthMiddleWare, async (req, res) => {
+router.get('/list', passport.authenticate('jwt', { session: false }), managerAuthMiddleware, async (req, res) => {
     getAllVegetables(req, res);
 });
 
@@ -48,7 +48,7 @@ router.get('/list', passport.authenticate('jwt', { session: false }), managerAut
 //     req.user = user;
 //     return next();
 // }),
-// managerAuthMiddleWare,
+// managerAuthMiddleware,
 // async (req, res) => {
 //     console.log('Manager Authorization Passed.');
 //     await getAllVegetables(req, res);
@@ -58,17 +58,17 @@ router.get('/list', passport.authenticate('jwt', { session: false }), managerAut
 
 
 // Manager route to get vegetable by ID
-router.get('/get/:vegetable_id', passport.authenticate('jwt', { session: false }), managerAuthMiddleWare, validate(getVegetableValidation()), async (req, res) => {
+router.get('/get/:vegetable_id', passport.authenticate('jwt', { session: false }), managerAuthMiddleware, validate(getVegetableValidation()), async (req, res) => {
     getVegetableById(req, res);
 });
 
 // Manager route to update vegetable by ID
-router.patch('/update/:vegetable_id', passport.authenticate('jwt', { session: false }), managerAuthMiddleWare, validate(updateVegetableValidation()), async (req, res) => {
+router.patch('/update/:vegetable_id', passport.authenticate('jwt', { session: false }), managerAuthMiddleware, validate(updateVegetableValidation()), async (req, res) => {
     updateVegetableById(req, res);
 });
 
 // Manager route to delete vegetable by ID
-router.delete('/delete/:vegetable_id', passport.authenticate('jwt', { session: false }), managerAuthMiddleWare, validate(deleteVegetableValidation()), async (req, res) => {
+router.post('/delete/:vegetable_id', passport.authenticate('jwt', { session: false }), managerAuthMiddleware, validate(deleteVegetableValidation()), async (req, res) => {
     deleteVegetableById(req, res);
 });
 

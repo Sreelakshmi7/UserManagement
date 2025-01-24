@@ -41,9 +41,6 @@ passport.use(
         },
         async (jwtPayload, done) => {
             try {
-                console.log('JwtStrategy: jwtFromRequest function:', ExtractJwt.fromAuthHeaderAsBearerToken());
-                console.log('JwtStrategy: Received JWT payload:', jwtPayload);
-
                 const user = await User.findById(jwtPayload.userId); 
                 if (!user) {
                     console.warn('JwtStrategy: User not found for payload userId:', jwtPayload.userId);

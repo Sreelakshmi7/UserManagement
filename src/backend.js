@@ -10,6 +10,9 @@ import swaggerDocs from './api/v1/swagger/swaggersDocs.js';
 import cors from 'cors';
 import { vegetableRouter } from './api/v1/routes/admin/vegetable.js';
 import { vegetablesRouter } from './api/v1/routes/manager/vegetable.js';
+import { adminAuthMiddleware } from './api/v1/middleware/adminAuthMiddleware.js';
+import { managerAuthMiddleware } from './api/v1/middleware/managerAuthMiddleware.js';
+
 
 dotenv.config(); // Load environment variables
 
@@ -26,6 +29,8 @@ app.use(cors());// Initialize Passport.js
 
 // Swagger documentation route
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use(adminAuthMiddleware); 
+app.use(managerAuthMiddleware); 
 
 // Routes
 app.use('/v1/admin', userRouter);

@@ -1,4 +1,4 @@
-export const managerAuthMiddleWare = (req, res, next) => {
+export const managerAuthMiddleware = (req, res, next) => {
     if (req.user && req.user.userType === 'Manager') {
         return next(); 
     }
